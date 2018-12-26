@@ -6,12 +6,14 @@ public class CompetitorB implements Runnable {
 	Random forcharacter;
 	Random forsleep;
 	int race[][];
+	int Sleeptime[][];
 	int round;
 	int charnum;
 	int sleeptime;
 	
-	public CompetitorB(int array[][]) {
+	public CompetitorB(int array[][],int S[][]) {
 		race = array;
+		Sleeptime = S;
 		round=race.length;
 		forcharacter = new Random();
 		forsleep = new Random();
@@ -23,6 +25,7 @@ public class CompetitorB implements Runnable {
 		for(int i=0;i<round;i++) {
 			try {
 				sleeptime = forsleep.nextInt(1001);
+				Sleeptime[i][1]=sleeptime;
 				Thread.sleep(sleeptime);
 			} catch (InterruptedException e) {
 				// TODO 自动生成的 catch 块
@@ -30,7 +33,6 @@ public class CompetitorB implements Runnable {
 			}
 			charnum = forcharacter.nextInt(26) + 97;
 			race[i][1] = charnum;
-			System.out.println("Round" + (i+1) + ": " + "B: sleeptime is " + sleeptime + "ms, and character is " + (char)charnum);
 			synchronized(race) {
 				race.notifyAll();
 				while(race[i][0]!=1||race[i][1]!=1) {

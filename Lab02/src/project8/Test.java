@@ -9,15 +9,16 @@ public class Test {
 		System.out.println("Input the round num£º");
 		Scanner scanner = new Scanner(System.in);
 		int round = scanner.nextInt();
-		while(round<1) {
+		while(round<4) {
 			System.out.println("input wrong!");
 			System.out.println("Input the round num£º");
 			round = scanner.nextInt();
 		}
 		int race[][] = new int[round][2];
-		Judgment judgment = new Judgment(race);
-		CompetitorA competitorA = new CompetitorA(race);
-		CompetitorB competitorB = new CompetitorB(race);
+		int sleeptime[][] = new int[round][2];
+		Judgment judgment = new Judgment(race,sleeptime);
+		CompetitorA competitorA = new CompetitorA(race,sleeptime);
+		CompetitorB competitorB = new CompetitorB(race,sleeptime);
 		
 		Thread A = new Thread(competitorA);
 		Thread B = new Thread(competitorB);

@@ -6,12 +6,14 @@ public class Judgment extends Thread {
 	private int b; //记录B得分
 	int round; //回合数
 	int race[][];
+	int sleeptime[][];
 	
-	public Judgment(int array[][]) {
-		race=array;
-		round=race.length;
-		a=0;
-		b=0;
+	public Judgment(int array[][],int S[][]) {
+		race = array;
+		sleeptime = S;
+		round = race.length;
+		a = 0;
+		b = 0;
 	}
 	
 	public void judge() {
@@ -30,6 +32,11 @@ public class Judgment extends Thread {
 	@Override
 	public void run() {
 		synchronized(race) {
+			System.out.println("┌─────────┬──────────────────────────────────────────────────────┬──────────────────────────────────────────────────────┐");
+			System.out.println("│         │                     Thread A                         │                     Thread B                         │");
+			System.out.println("│  Round  ├─────────────┬────────────────────┬───────────────────┼─────────────┬────────────────────┬───────────────────┤");
+			System.out.println("│         │  Sleeptime  │  Random character  │  Points obtained  │  Sleeptime  │  Random character  │  Points obtained  │");
+			System.out.println("├─────────┼─────────────┼────────────────────┼───────────────────┼─────────────┼────────────────────┼───────────────────┤");
 			for(int i=0;i<round;i++) {
 				while(race[i][0]==0||race[i][1]==0) {
 					try {
@@ -49,12 +56,16 @@ public class Judgment extends Thread {
 				else {
 					b += 2;
 				}
-				System.out.println("now A gets " + a + " points and B gets " + b + " points.\n");
+				if(i!=0) System.out.println("├─────────┼─────────────┼────────────────────┼───────────────────┼─────────────┼────────────────────┼───────────────────┤");
+				System.out.printf("│   %3d   │   %4d ms   │          %c         │        %3d        │   %4d ms   │          %c         │        %3d        │\n",i+1,sleeptime[i][0],race[i][0],a,sleeptime[i][1],race[i][1],b);
+				//System.out.println("├─────────┼─────────────┼────────────────────┼───────────────────┼─────────────┼────────────────────┼───────────────────┤");
+			//	System.out.println("now A gets " + a + " points and B gets " + b + " points.\n");
 				race[i][0]=1;
 				race[i][1]=1;
 				race.notifyAll();
 			}
 		}
+		System.out.println("└─────────┴─────────────┴────────────────────┴───────────────────┴─────────────┴────────────────────┴───────────────────┘");
 		judge();
 	}
 }

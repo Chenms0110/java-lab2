@@ -21,8 +21,8 @@ public class MyServer {
 	    ServerSocket serverSocket = new ServerSocket(2333);
 	    System.out.println("Game Started");
 	    Socket socket = serverSocket.accept();
-	    var in = new DataInputStream(socket.getInputStream());
-	    var out = new DataOutputStream(socket.getOutputStream());
+	    DataInputStream in = new DataInputStream(socket.getInputStream());
+	    DataOutputStream out = new DataOutputStream(socket.getOutputStream());
 	    int round = in.readInt();
 	    System.out.println("round is :" + round);
 	    
@@ -33,25 +33,38 @@ public class MyServer {
 	    DatagramPacket sndPkt = new DatagramPacket(buf, buf.length);
 	    
 	    
-	    
+	    System.out.println("©°©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©´");
+		System.out.println("©¦         ©¦                     Thread A                         ©¦                     Thread B                         ©¦");
+		System.out.println("©¦  Round  ©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ð©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È");
+		System.out.println("©¦         ©¦  Sleeptime  ©¦  Random selection  ©¦  Points obtained  ©¦  Sleeptime  ©¦  Random character  ©¦  Points obtained  ©¦");
+		System.out.println("©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È");
 		for(int i=0;i<round;i++) {
+			buf = new byte[1024];
+			Arrays.fill(buf,(byte)0);
+			rcvPkt.setData(buf);
+			socketA.receive(rcvPkt);
+			int sleeptime[] = new int[2];
+			sleeptime[0] = Integer.parseInt(new String(buf).trim());
+			sleeptime[1] = in.readInt();
+			
+			buf = new byte[1024];
 			Arrays.fill(buf,(byte)0);
 			rcvPkt.setData(buf);
 			socketA.receive(rcvPkt);
 			int a = Integer.parseInt(new String(buf).trim());
-			
 			int b = in.readInt();
 	        
 	        sndPkt.setAddress(rcvPkt.getAddress());
 	        sndPkt.setPort(rcvPkt.getPort());
 	        buf = Integer.valueOf(1).toString().getBytes();
 	        sndPkt.setData(buf, 0, buf.length); 
-	        System.out.println("Round" + (i+1) + ": A:" + changetoPose(a) + " B:" + changetoPose(b));
 	        judge(a,b);
-	        System.out.println("now A gets " + A + " points and B gets " + B + " points.\n");
+	        if(i!=0) System.out.println("©À©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©à©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©È");
+			System.out.printf("©¦   %3d   ©¦   %4d ms   ©¦       %-8s     ©¦        %3d        ©¦   %4d ms   ©¦       %-8s     ©¦        %3d        ©¦\n",i+1,sleeptime[0],changetoPose(a),A,sleeptime[1],changetoPose(b),B);
 	        socketA.send(sndPkt);
 	        out.writeInt(round);
 		}
+		System.out.println("©¸©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©Ø©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¤©¼");
 		Victory();
 		socket.close();
 		socketA.close();
